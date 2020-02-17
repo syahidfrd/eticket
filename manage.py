@@ -6,6 +6,7 @@ from flask_migrate import MigrateCommand
 from app import create_app
 
 from app.model.user import User
+from app.model.app import App
 
 app = create_app()
 manager = Manager(app)

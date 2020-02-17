@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 
 from app.config import ProdConfig, DevConfig
 from app.api import api_blueprint
-from app.model import db
+from app.model import db, ma
 
 migrate = Migrate()
 
@@ -25,6 +25,7 @@ def create_app(config_object=DefaultConfig):
 
 def register_extensions(app):
 	db.init_app(app)
+	ma.init_app(app)
 	migrate.init_app(app, db)
 
 
