@@ -33,6 +33,34 @@ def signup(data):
 	except Exception as err: 
 		return http_internal_server_error(err)
 
+def signin(data):
+	print(data)
+	try:
+		user = User.query.filter_by(email=data['email']).first()
+		if user and user.check_password(data['password']):
+			user = user_schema.dump(user)
+			return http_status_ok(user)
+		else:
+			return http_authentication_failed('User or password not match')
+	except Exception as err:
+		return http_internal_server_error(err)
+
+def get_current_user(request):
+
+	auth_token = request.headers.get('Authorization')
+
+	if auth_token:
+		user = User.query.filter_by(authentication_token=str(auth_token)).first()
+		if user:
+			user = user_schema.dump(user)
+			return http_status_ok(user)
+		else:
+			return http_unauthorized('Provide a valid token')
+	else:
+		return http_unauthorized('Provide a valid token')
+
+
+
 def save_changes(data):
 	db.session.add(data)
 	db.session.commit()
