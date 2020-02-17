@@ -1,6 +1,12 @@
 import datetime
 
+from marshmallow import fields
+
 from . import db, ma
+from .departement import Departement
+from .user import UserSchema
+
+user_schema = UserSchema()
 
 class Agent(db.Model):
 	__tablename__ = 'agent'
@@ -21,3 +27,5 @@ class Agent(db.Model):
 class AgentSchema(ma.ModelSchema):
 	class Meta:
 		model = Agent
+
+	user = fields.Nested(user_schema)

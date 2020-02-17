@@ -41,3 +41,4 @@ class UserSchema(ma.ModelSchema):
 	class Meta:
 		model = User
 		exclude = ("app", "password_hash")
+		include_fk = True
