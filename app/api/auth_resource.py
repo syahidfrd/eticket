@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import Schema, fields, ValidationError, validate
 
 from app.service.auth_service import signup, signin
 from app.api import api
@@ -9,7 +9,7 @@ from app.util.http_response import http_validation_error
 class SignupSchema(Schema):
 	name =  fields.Str(required=True)
 	email = fields.Email(required=True)
-	password = fields.Str(required=True)
+	password = fields.Str(required=True, validate=validate.Length(min=6))
 
 class SigninSchema(Schema):
 	email = fields.Email(required=True)

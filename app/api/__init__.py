@@ -6,3 +6,4 @@ api = Api(api_blueprint)
 
 from . import auth_resource
 from . import agent_resource
+from . import ticket_resource

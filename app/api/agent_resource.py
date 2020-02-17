@@ -5,7 +5,7 @@ from marshmallow import Schema, fields, ValidationError
 from app.service.agent_service import create_agent
 from app.api import api
 from app.util.http_response import http_validation_error
-from app.util.decorator import token_required
+from app.util.decorator import admin_token_required
 
 class AgentSchema(Schema):
 	name = fields.Str(required=True)
@@ -16,7 +16,7 @@ class AgentSchema(Schema):
 agent_schema = AgentSchema()
 
 class AgentResource(Resource):
-	@token_required
+	@admin_token_required
 	def post(self):
 		try:
 			data = agent_schema.load(request.json)
