@@ -17,6 +17,7 @@ class DepartementSchema(ma.ModelSchema):
 
 def departement_seeder():
 	db.session.query(Departement).delete()
-	departement = Departement(id=1, name='General')
-	db.session.add(departement)
+	departement1 = Departement(id=1, name='General')
+	departement2 = Departement(id=2, name='Accounting')
+	db.session.add_all([departement1, departement2])
 	db.session.commit()

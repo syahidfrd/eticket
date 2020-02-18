@@ -10,6 +10,7 @@ from app.model.user import User
 from app.model.departement import Departement, departement_seeder
 from app.model.agent import Agent
 from app.model.ticket import Ticket
+from app.model.admin_app import AdminApp
 
 app = create_app()
 manager = Manager(app)

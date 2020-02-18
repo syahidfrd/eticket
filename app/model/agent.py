@@ -24,6 +24,9 @@ class Agent(db.Model):
 	departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
 	departement = db.relationship('Departement', backref='agents')
 
+	def __repr__(self):
+		return "<Agent: id {}>".format(self.id)
+
 class AgentSchema(ma.ModelSchema):
 	class Meta:
 		model = Agent

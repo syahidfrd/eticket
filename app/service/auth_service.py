@@ -3,6 +3,7 @@ import secrets
 from app.model import db
 from app.model.user import User, UserSchema
 from app.model.app import App
+from app.model.admin_app import AdminApp
 from app.util.http_response import *
 
 user_schema = UserSchema()
@@ -11,11 +12,13 @@ def signup(data):
 	try:
 		user = User.query.filter_by(email=data['email']).first()
 		if not user:
+			#Save App
 			new_app = App(
 				code=secrets.token_urlsafe(20)
 			)
 			save_changes(new_app)
 
+			# Save User
 			new_user = User(
 				name=data['name'],
 				email=data['email'],
@@ -24,6 +27,14 @@ def signup(data):
 				app=new_app
 			)
 			save_changes(new_user)
+
+			#Save Admin App
+			new_admin_app = AdminApp(
+				user_id=new_user.id,
+				app_id=new_app.id
+			)
+			save_changes(new_admin_app)
+			
 			new_user = user_schema.dump(new_user)
 			return http_status_ok(new_user)
 		else:
