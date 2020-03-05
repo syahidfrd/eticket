@@ -29,8 +29,13 @@ pip install -r requirements.txt
 docker-compose up -d
 ```
 
-- Compiles and run
+- Migrate database and run
 
 ```bash
+# migrate database
+python manage.py db upgrade
+# seed database
+python manage.py seed
+# run server
 python manage.py run
 ```
